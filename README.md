@@ -7,6 +7,13 @@ Cloudflare Pages with a single Pages Function for the enquiry form.
 This is a bare-bones MVP: one page, no payments, no booking system. Everything a
 non-developer needs to change lives in **`src/content/site.ts`**.
 
+## Documentation
+
+- [`docs/BRIEF.md`](docs/BRIEF.md) — the original website brief, kept as the
+  reference spec.
+- [`docs/TBD.md`](docs/TBD.md) — what still needs deciding, supplying or
+  building, including everything that must be done before launch.
+
 ## Running locally
 
 ```bash
