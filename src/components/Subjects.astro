@@ -1,0 +1,39 @@
+---
+import Icon from './Icon.astro';
+import { subjects } from '../content/site';
+---
+
+<section id="subjects" class="section">
+  <div class="container-page">
+    <div class="mx-auto max-w-2xl text-center" data-reveal>
+      <p class="eyebrow">Subjects</p>
+      <h2 class="h2 mt-2">{subjects.heading}</h2>
+      <p class="lede mt-4">{subjects.intro}</p>
+    </div>
+
+    <div class="mt-12 grid gap-6 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        subjects.items.map((subject) => (
+          <div class="card card-hover flex flex-col" data-reveal>
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-navy-50 text-navy-600">
+              <Icon name={subject.icon} class="h-6 w-6" />
+            </div>
+            <h3 class="mt-5 text-xl font-bold text-ink">{subject.name}</h3>
+            <div class="mt-3 flex flex-wrap gap-2">
+              {subject.levels.map((level) => <span class="pill">{level}</span>)}
+            </div>
+            <p class="lede mt-4">{subject.body}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div
+      class="mt-14 flex flex-col items-center justify-center gap-4 text-center sm:mt-16 sm:flex-row"
+      data-reveal
+    >
+      <p class="lede">Not sure which level you need?</p>
+      <a href="#contact" class="btn-ghost">Speak to us</a>
+    </div>
+  </div>
+</section>

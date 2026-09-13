@@ -1,0 +1,31 @@
+{
+  "name": "eureka-academy",
+  "version": "0.1.0",
+  "description": "Eureka Academy — personalised tutoring website",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "preview:functions": "astro build && npx wrangler pages dev dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aarianmm/soumya_tutoring.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aarianmm/soumya_tutoring/issues"
+  },
+  "homepage": "https://github.com/aarianmm/soumya_tutoring#readme",
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^5.18.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260911.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  },
+  "private": true,
+  "type": "module"
+}

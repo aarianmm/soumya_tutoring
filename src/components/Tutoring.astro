@@ -1,0 +1,33 @@
+---
+import Icon from './Icon.astro';
+import { tutoring } from '../content/site';
+---
+
+<section id="tutoring" class="section bg-cream">
+  <div class="container-page">
+    <div class="mx-auto max-w-2xl text-center" data-reveal>
+      <p class="eyebrow">Our Tutoring</p>
+      <h2 class="h2 mt-2">{tutoring.heading}</h2>
+      <p class="lede mt-4">{tutoring.intro}</p>
+    </div>
+
+    <div class="mt-12 grid gap-6 sm:mt-16 md:grid-cols-2">
+      {
+        tutoring.cards.map((card, index) => (
+          <div class="card card-hover flex flex-col p-8 sm:p-10" data-reveal>
+            <div
+              class={`flex h-14 w-14 items-center justify-center rounded-2xl ${
+                index % 2 === 0 ? 'bg-navy-50 text-navy-600' : 'bg-gold-50 text-gold-600'
+              }`}
+            >
+              <Icon name={card.icon} class="h-7 w-7" />
+            </div>
+            <p class="eyebrow mt-6">{card.eyebrow}</p>
+            <h3 class="mt-2 text-xl font-bold text-ink">{card.heading}</h3>
+            <p class="lede mt-3">{card.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

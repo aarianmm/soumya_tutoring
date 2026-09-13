@@ -1,0 +1,353 @@
+---
+import Icon from './Icon.astro';
+import { site, contact } from '../content/site';
+---
+
+<section id="contact" class="section bg-navy-50/40">
+  <div class="container-page">
+    <div class="mx-auto max-w-2xl text-center" data-reveal>
+      <p class="eyebrow">Contact</p>
+      <h2 class="h2 mt-2">{contact.heading}</h2>
+      <p class="lede mt-4">{contact.intro}</p>
+    </div>
+
+    <div class="mt-12 grid gap-6 sm:mt-16 lg:grid-cols-5 lg:gap-8">
+      <!-- Form -->
+      <div class="card min-w-0 p-6 sm:p-8 lg:col-span-3" data-reveal>
+        <form id="enquiry-form" novalidate>
+          <!-- Honeypot — hidden from real visitors and assistive tech, left for bots to fill in. -->
+          <div class="sr-only" aria-hidden="true">
+            <label for="company">Company</label>
+            <input
+              type="text"
+              id="company"
+              name="company"
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label for="name" class="field-label">Full name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="field"
+                required
+                aria-describedby="name-error"
+              />
+              <p id="name-error" class="mt-1.5 hidden text-sm font-medium text-red-600"></p>
+            </div>
+
+            <div>
+              <label for="email" class="field-label">Email address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="field"
+                required
+                aria-describedby="email-error"
+              />
+              <p id="email-error" class="mt-1.5 hidden text-sm font-medium text-red-600"></p>
+            </div>
+
+            <div>
+              <label for="phone" class="field-label">Phone number (optional)</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                class="field"
+                aria-describedby="phone-error"
+              />
+              <p id="phone-error" class="mt-1.5 hidden text-sm font-medium text-red-600"></p>
+            </div>
+
+            <div>
+              <label for="yearGroup" class="field-label">Year group</label>
+              <select
+                id="yearGroup"
+                name="yearGroup"
+                class="field"
+                required
+                aria-describedby="yearGroup-error"
+              >
+                <option value="" disabled selected>Select year group</option>
+                {contact.yearGroups.map((year) => <option value={year}>{year}</option>)}
+              </select>
+              <p id="yearGroup-error" class="mt-1.5 hidden text-sm font-medium text-red-600"></p>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="subject" class="field-label">Subject</label>
+              <select
+                id="subject"
+                name="subject"
+                class="field"
+                required
+                aria-describedby="subject-error"
+              >
+                <option value="" disabled selected>Select subject</option>
+                {contact.subjectOptions.map((subject) => (
+                  <option value={subject}>{subject}</option>
+                ))}
+              </select>
+              <p id="subject-error" class="mt-1.5 hidden text-sm font-medium text-red-600"></p>
+            </div>
+
+            <fieldset class="sm:col-span-2">
+              <legend class="field-label">Session type</legend>
+              <div class="flex flex-wrap gap-2">
+                {contact.sessionTypes.map((type) => {
+                  const id = `sessionType-${type.toLowerCase().replace(/\s+/g, '-')}`;
+                  return (
+                    <label for={id} class="cursor-pointer">
+                      <input
+                        type="radio"
+                        id={id}
+                        name="sessionType"
+                        value={type}
+                        class="peer sr-only"
+                        checked={type === 'Either'}
+                      />
+                      <span class="inline-flex items-center rounded-full border border-navy-200 bg-white px-4 py-2 text-sm font-semibold text-ink transition peer-checked:border-navy-600 peer-checked:bg-navy-600 peer-checked:text-white peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-navy-500">
+                        {type}
+                      </span>
+                    </label>
+                  );
+                })}
+              </div>
+              <p id="sessionType-error" class="mt-1.5 hidden text-sm font-medium text-red-600"></p>
+            </fieldset>
+
+            <div class="sm:col-span-2">
+              <label for="availability" class="field-label">Preferred days/times (optional)</label>
+              <input type="text" id="availability" name="availability" class="field" />
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="message" class="field-label">Tell us more</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                class="field resize-y"
+                required
+                aria-describedby="message-error"
+                placeholder="Tell us about the student's current level, what they would like help with and what they are hoping to achieve."
+              ></textarea>
+              <p id="message-error" class="mt-1.5 hidden text-sm font-medium text-red-600"></p>
+            </div>
+          </div>
+
+          <p
+            id="form-error"
+            role="alert"
+            class="mt-6 hidden rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700"
+          ></p>
+
+          <button type="submit" id="submit-button" class="btn-primary mt-6 w-full sm:w-auto">
+            Send Enquiry
+          </button>
+        </form>
+
+        <div id="success-panel" class="hidden" role="status" aria-live="polite">
+          <div class="flex items-start gap-4 rounded-xl border border-navy-100 bg-navy-50 p-6">
+            <span class="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-navy-600 text-white">
+              <Icon name="check" class="h-5 w-5" />
+            </span>
+            <div>
+              <p class="text-lg font-bold text-ink">Thank you!</p>
+              <p class="mt-1 text-muted">
+                We've received your enquiry and will be in touch shortly.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prefer to speak card -->
+      <div class="card p-6 sm:p-8 lg:col-span-2" data-reveal>
+        <h3 class="text-xl font-bold text-ink">Prefer to speak to us?</h3>
+        <p class="lede mt-2">
+          Call or email us directly and we'll help you find the right tutor and schedule.
+        </p>
+
+        <div class="mt-6 space-y-4">
+          <a
+            href={`tel:${site.phone.replace(/\s+/g, '')}`}
+            class="flex items-center gap-4 rounded-xl border border-navy-100 bg-navy-50/60 p-4 transition hover:border-navy-300 hover:bg-navy-50"
+          >
+            <span class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-navy-600 text-white">
+              <Icon name="phone" class="h-5 w-5" />
+            </span>
+            <span class="min-w-0">
+              <span class="block text-xs font-semibold uppercase tracking-wide text-muted">Call us</span>
+              <span class="block text-lg font-bold text-ink">{site.phoneDisplay}</span>
+            </span>
+          </a>
+
+          <a
+            href={`mailto:${site.email}`}
+            class="flex items-center gap-4 rounded-xl border border-navy-100 bg-navy-50/60 p-4 transition hover:border-navy-300 hover:bg-navy-50"
+          >
+            <span class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-navy-600 text-white">
+              <Icon name="mail" class="h-5 w-5" />
+            </span>
+            <span class="min-w-0">
+              <span class="block text-xs font-semibold uppercase tracking-wide text-muted">Email us</span>
+              <span class="block wrap-anywhere text-base font-bold text-ink sm:text-lg">{site.email}</span>
+            </span>
+          </a>
+        </div>
+
+        <p class="mt-6 text-sm text-muted">We usually reply within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ siteEmail: site.email }}>
+  (function () {
+    const form = document.getElementById('enquiry-form');
+    if (!(form instanceof HTMLFormElement)) return;
+
+    const submitButton = document.getElementById('submit-button');
+    const formError = document.getElementById('form-error');
+    const successPanel = document.getElementById('success-panel');
+
+    const requiredFields = [
+      { name: 'name', message: 'Please enter your name.' },
+      { name: 'email', message: 'Please enter a valid email address.' },
+      { name: 'yearGroup', message: 'Please select a year group.' },
+      { name: 'subject', message: 'Please select a subject.' },
+      { name: 'message', message: 'Please tell us a little about what you need.' },
+    ];
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function fieldEl(name) {
+      return form.querySelector(`[name="${name}"]`);
+    }
+
+    function errorEl(name) {
+      return document.getElementById(`${name}-error`);
+    }
+
+    function clearError(name) {
+      const err = errorEl(name);
+      const el = fieldEl(name);
+      if (err) {
+        err.textContent = '';
+        err.classList.add('hidden');
+      }
+      if (el && 'setAttribute' in el) {
+        el.setAttribute('aria-invalid', 'false');
+      }
+    }
+
+    function showError(name, message) {
+      const err = errorEl(name);
+      const el = fieldEl(name);
+      if (err) {
+        err.textContent = message;
+        err.classList.remove('hidden');
+      }
+      if (el && 'setAttribute' in el) {
+        el.setAttribute('aria-invalid', 'true');
+      }
+    }
+
+    function clearAllErrors() {
+      requiredFields.forEach((field) => clearError(field.name));
+      formError.textContent = '';
+      formError.classList.add('hidden');
+    }
+
+    function validate(data) {
+      let firstInvalid = null;
+
+      requiredFields.forEach((field) => {
+        const value = (data.get(field.name) || '').toString().trim();
+        let invalid = value.length === 0;
+
+        if (field.name === 'email' && !invalid) {
+          invalid = !emailPattern.test(value);
+        }
+
+        if (invalid) {
+          showError(field.name, field.message);
+          if (!firstInvalid) firstInvalid = field.name;
+        }
+      });
+
+      return firstInvalid;
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      clearAllErrors();
+
+      const data = new FormData(form);
+      const firstInvalid = validate(data);
+
+      if (firstInvalid) {
+        const el = fieldEl(firstInvalid);
+        if (el instanceof HTMLElement) el.focus();
+        return;
+      }
+
+      const payload = {
+        name: (data.get('name') || '').toString().trim(),
+        email: (data.get('email') || '').toString().trim(),
+        phone: (data.get('phone') || '').toString().trim(),
+        yearGroup: (data.get('yearGroup') || '').toString(),
+        subject: (data.get('subject') || '').toString(),
+        sessionType: (data.get('sessionType') || '').toString(),
+        availability: (data.get('availability') || '').toString().trim(),
+        message: (data.get('message') || '').toString().trim(),
+        company: (data.get('company') || '').toString(),
+      };
+
+      if (submitButton instanceof HTMLButtonElement) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending…';
+      }
+
+      fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+        .then(async (response) => {
+          let ok = response.ok;
+          try {
+            const result = await response.json();
+            ok = ok && result && result.ok !== false;
+          } catch (_err) {
+            // Non-JSON response is treated as failure below if !response.ok.
+          }
+
+          if (!ok) throw new Error('request-failed');
+
+          form.classList.add('hidden');
+          if (successPanel) successPanel.classList.remove('hidden');
+        })
+        .catch(() => {
+          formError.innerHTML =
+            'Sorry — something went wrong sending your enquiry. Please email us at ' +
+            `<a href="mailto:${siteEmail}" class="font-semibold underline">${siteEmail}</a>` +
+            ' and we\'ll pick it up straight away.';
+          formError.classList.remove('hidden');
+
+          if (submitButton instanceof HTMLButtonElement) {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Send Enquiry';
+          }
+        });
+    });
+  })();
+</script>

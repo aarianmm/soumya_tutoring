@@ -1,0 +1,56 @@
+---
+import { about } from '../content/site';
+---
+
+<section id="about" class="section">
+  <div class="container-page">
+    <div class="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+      <div class="relative order-1" data-reveal>
+        <div
+          class="absolute -inset-4 -z-10 rounded-[2.5rem] bg-gold-100/70 sm:-inset-6"
+          aria-hidden="true"
+        >
+        </div>
+        <img
+          src={about.image.src}
+          alt={about.image.alt}
+          width="640"
+          height="720"
+          loading="lazy"
+          decoding="async"
+          class="aspect-[4/5] w-full rounded-[2rem] border border-navy-100 object-cover shadow-[var(--shadow-lift)]"
+        />
+      </div>
+
+      <div class="order-2" data-reveal>
+        <p class="eyebrow">About Us</p>
+        <h2 class="h2 mt-2">{about.heading}</h2>
+
+        <div class="mt-6 space-y-6">
+          {
+            about.paragraphs.map((paragraph) => (
+              <div>
+                <h3 class="text-lg font-bold text-ink">{paragraph.heading}</h3>
+                <p class="lede mt-2">{paragraph.body}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="mt-16 grid grid-cols-2 gap-6 border-t border-navy-100 pt-10 sm:mt-20 sm:pt-12 lg:grid-cols-4 lg:gap-4"
+      data-reveal
+    >
+      {
+        about.stats.map((stat) => (
+          <div class="text-center lg:border-l lg:border-navy-100 lg:first:border-l-0">
+            <p class="text-3xl font-extrabold text-navy-600 sm:text-4xl">{stat.value}</p>
+            <p class="mt-1 text-sm text-muted">{stat.label}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

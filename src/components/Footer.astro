@@ -1,0 +1,103 @@
+---
+import Icon from './Icon.astro';
+import { site, nav, footer } from '../content/site';
+---
+
+<footer class="bg-navy-900 text-navy-100">
+  <div class="container-page grid gap-12 py-16 sm:py-20 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+    <div class="md:col-span-2 lg:col-span-1">
+      <a href="#top" class="flex items-center gap-2.5 font-extrabold tracking-tight text-white">
+        <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 text-gold-300">
+          <Icon name="spark" class="h-5 w-5" />
+        </span>
+        <span class="text-lg">{site.name}</span>
+      </a>
+      <p class="mt-4 max-w-xs text-sm leading-relaxed text-navy-200">
+        Personal, one-to-one tutoring for 11+, KS2, KS3, GCSE and A Level students.
+      </p>
+      <p class="mt-2 text-sm font-semibold text-white">{site.tagline}</p>
+    </div>
+
+    <div>
+      <h2 class="text-sm font-semibold uppercase tracking-[0.14em] text-navy-200">Explore</h2>
+      <ul class="mt-4 space-y-3">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="text-sm text-navy-100 transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-sm font-semibold uppercase tracking-[0.14em] text-navy-200">Contact</h2>
+      <ul class="mt-4 space-y-3">
+        <li>
+          <a
+            href={`tel:${site.phone}`}
+            class="flex items-center gap-2.5 text-sm text-navy-100 transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300"
+          >
+            <Icon name="phone" class="h-4 w-4 shrink-0 text-gold-300" />
+            {site.phoneDisplay}
+          </a>
+        </li>
+        <li>
+          <a
+            href={`mailto:${site.email}`}
+            class="flex items-center gap-2.5 text-sm text-navy-100 transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300"
+          >
+            <Icon name="mail" class="h-4 w-4 shrink-0 text-gold-300" />
+            {site.email}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-sm font-semibold uppercase tracking-[0.14em] text-navy-200">Follow</h2>
+      <ul class="mt-4 space-y-3">
+        {
+          footer.socials.map((social) => (
+            <li>
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-sm text-navy-100 transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300"
+              >
+                {social.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <ul class="mt-5 space-y-3 border-t border-white/10 pt-5">
+        {
+          footer.legal.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="text-sm text-navy-200 transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="container-page flex flex-col items-center gap-2 py-6 text-center text-xs text-navy-200 sm:flex-row sm:justify-between sm:text-left">
+      <p>© {footer.year} {site.name}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

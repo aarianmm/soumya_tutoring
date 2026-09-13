@@ -1,0 +1,64 @@
+---
+import { hero, levels } from '../content/site';
+
+const [line1, line2, line3] = hero.heading;
+---
+
+<section id="top" class="relative overflow-hidden bg-gradient-to-b from-navy-50 via-navy-50/40 to-white pt-28 pb-16 sm:pt-36 sm:pb-24">
+  <div class="container-page grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+    <div data-reveal>
+      <h1 class="text-4xl font-extrabold leading-[1.1] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]">
+        <span class="block">{line1}</span>
+        <span class="block">{line2}</span>
+        <span class="relative block text-navy-500">
+          {line3}
+          <svg
+            class="absolute -bottom-2 left-0 h-3 w-full max-w-xs text-gold-400"
+            viewBox="0 0 200 12"
+            preserveAspectRatio="none"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path d="M2 9C40 2 100 2 198 9" stroke="currentColor" stroke-width="5" stroke-linecap="round" />
+          </svg>
+        </span>
+      </h1>
+
+      <p class="lede mt-6 max-w-xl">{hero.body}</p>
+
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href={hero.primaryCta.href} class="btn-primary">{hero.primaryCta.label}</a>
+        <a href={hero.secondaryCta.href} class="btn-ghost">{hero.secondaryCta.label}</a>
+      </div>
+
+      <div class="mt-10 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-medium text-muted">
+        {
+          levels.map((level, i) => (
+            <>
+              <span>{level}</span>
+              {i < levels.length - 1 && <span class="text-navy-200" aria-hidden="true">|</span>}
+            </>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="relative mt-4 lg:mt-0" data-reveal>
+      <div class="pointer-events-none absolute -left-8 -top-8 h-40 w-40 rounded-full bg-gold-200/50 blur-2xl" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute -bottom-10 -right-6 h-56 w-56 rounded-full bg-navy-200/40 blur-3xl" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute right-10 top-1/3 h-16 w-16 rounded-full bg-gold-300/40 blur-xl" aria-hidden="true"></div>
+
+      <div class="relative overflow-hidden rounded-[2rem] border border-navy-100 bg-white shadow-[var(--shadow-lift)]">
+        <img
+          src={hero.image.src}
+          alt={hero.image.alt}
+          width="640"
+          height="720"
+          loading="eager"
+          fetchpriority="high"
+          class="h-full w-full object-cover"
+        />
+      </div>
+    </div>
+  </div>
+</section>

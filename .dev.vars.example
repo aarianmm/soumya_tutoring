@@ -1,0 +1,5 @@
+# Copy to .dev.vars for local `npx wrangler pages dev dist` runs.
+# In production set these in the Cloudflare Pages project settings instead.
+RESEND_API_KEY=""
+ENQUIRY_TO="hello@eurekaacademy.co.uk"
+ENQUIRY_FROM="Eureka Academy <onboarding@resend.dev>"

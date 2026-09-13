@@ -1,0 +1,121 @@
+---
+import Icon from './Icon.astro';
+import { site, nav } from '../content/site';
+---
+
+<header id="site-header" class="fixed inset-x-0 top-0 z-50 border-b border-transparent transition-all duration-300">
+  <div class="container-page flex h-16 items-center justify-between gap-6 sm:h-20">
+    <a
+      href="#top"
+      class="flex items-center gap-2.5 rounded-full font-extrabold tracking-tight text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy-500"
+    >
+      <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-navy-600 text-gold-300 sm:h-10 sm:w-10">
+        <Icon name="spark" class="h-5 w-5 sm:h-6 sm:w-6" />
+      </span>
+      <span class="text-lg sm:text-xl">{site.name}</span>
+    </a>
+
+    <nav class="hidden items-center gap-8 lg:flex" aria-label="Primary">
+      <ul class="flex items-center gap-7">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="text-sm font-semibold text-ink/80 transition hover:text-navy-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy-500"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a href="#contact" class="btn-accent">Book a Session</a>
+    </nav>
+
+    <button
+      type="button"
+      id="menu-toggle"
+      class="inline-flex h-11 w-11 items-center justify-center rounded-full text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-500 lg:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+    >
+      <svg id="menu-icon-open" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 6.5h16M4 12h16M4 17.5h16" />
+      </svg>
+      <svg id="menu-icon-close" class="hidden h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="hidden border-t border-navy-100 bg-white shadow-[var(--shadow-lift)] lg:hidden" hidden>
+    <nav class="container-page flex flex-col gap-1 py-4" aria-label="Mobile">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class="mobile-menu-link rounded-lg px-3 py-3 text-base font-semibold text-ink transition hover:bg-navy-50 hover:text-navy-600"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a href="#contact" class="mobile-menu-link btn-accent mt-2 w-full">Book a Session</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header');
+
+  const onScroll = () => {
+    if (!header) return;
+    if (window.scrollY > 24) {
+      header.classList.add('is-scrolled', 'bg-white/95', 'backdrop-blur', 'border-navy-100', 'shadow-[var(--shadow-card)]');
+    } else {
+      header.classList.remove('is-scrolled', 'bg-white/95', 'backdrop-blur', 'border-navy-100', 'shadow-[var(--shadow-card)]');
+    }
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+
+  const closeMenu = () => {
+    if (!toggle || !menu) return;
+    menu.hidden = true;
+    menu.classList.add('hidden');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open menu');
+    iconOpen?.classList.remove('hidden');
+    iconClose?.classList.add('hidden');
+  };
+
+  const openMenu = () => {
+    if (!toggle || !menu) return;
+    menu.hidden = false;
+    menu.classList.remove('hidden');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Close menu');
+    iconOpen?.classList.add('hidden');
+    iconClose?.classList.remove('hidden');
+  };
+
+  toggle?.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    expanded ? closeMenu() : openMenu();
+  });
+
+  menu?.querySelectorAll('.mobile-menu-link').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMenu();
+  });
+</script>
